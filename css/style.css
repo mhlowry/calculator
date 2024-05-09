@@ -1,0 +1,46 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    align-items: center;
+}
+
+.row {
+    display: grid;
+    grid-template-columns: repeat(4, 10em);
+    justify-items: space-between;
+    gap: 1em;
+}
+
+.display {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    grid-column-end: span 3;
+    border: 1px black solid;
+    padding-left: 1em;
+    text-align: center;
+}
+
+.equals {
+    background-color: rgb(165, 164, 164);
+}
+
+button {
+    display: inline-block;
+    height: 5em;
+    width: 12em;
+    
+}
+
+h1 {
+    text-align: center;
+    padding: 1em;
+}
