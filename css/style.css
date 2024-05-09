@@ -19,7 +19,7 @@
     gap: 1em;
 }
 
-.display {
+#display {
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -40,7 +40,7 @@ button {
     
 }
 
-h1 {
+h1, h3 {
     text-align: center;
     padding: 1em;
 }

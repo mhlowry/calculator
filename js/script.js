@@ -1,31 +1,55 @@
-let num1;
-let num2;
-let op;
+let displayValue = '';
+let input = [0, '+', 0];
 
 //buttons and display selectors
-let buttonC = document.querySelector(".C");
-let display = document.querySelector(".display");
+let buttonC = document.querySelector("#C");
+let display = document.querySelector("#display");
 
-let button7 = document.querySelector("#7");
-let button8 = document.querySelector("#8");
-let button9 = document.querySelector("#9");
+let button7 = document.querySelector("#seven");
+let button8 = document.querySelector("#eight");
+let button9 = document.querySelector("#nine");
 let buttonDivision = document.querySelector("#division");
 
-let button4 = document.querySelector("#4");
-let button5 = document.querySelector("#5");
-let button6 = document.querySelector("#6");
+let button4 = document.querySelector("#four");
+let button5 = document.querySelector("#five");
+let button6 = document.querySelector("#six");
 let buttonMultiplication = document.querySelector("#multiplication");
 
-let button1 = document.querySelector("#1");
-let button2 = document.querySelector("#2");
-let button3 = document.querySelector("#3");
+let button1 = document.querySelector("#one");
+let button2 = document.querySelector("#two");
+let button3 = document.querySelector("#three");
 let buttonSubtraction = document.querySelector("#subtraction");
 
-let button0 = document.querySelector("#0");
-let buttonDecimal = document.querySelector("#decimal");
+let button0 = document.querySelector("#zero");
+//let buttonDecimal = document.querySelector("#decimal");
 let buttonAddition = document.querySelector("#addition");
 let buttonEquals = document.querySelector("#equals");
 
+// button listeners
+buttonC.addEventListener("click", () => clearDisplay());
+
+button7.addEventListener("click", () => updateDisplay('7'));
+button8.addEventListener("click", () => updateDisplay('8'));
+button9.addEventListener("click", () => updateDisplay('9'));
+buttonDivision.addEventListener("click", () => updateDisplay('/'));
+
+button4.addEventListener("click", () => updateDisplay('4'));
+button5.addEventListener("click", () => updateDisplay('5'));
+button6.addEventListener("click", () => updateDisplay('6'));
+buttonMultiplication.addEventListener("click", () => updateDisplay('*'));
+
+button1.addEventListener("click", () => updateDisplay('1'));
+button2.addEventListener("click", () => updateDisplay('2'));
+button3.addEventListener("click", () => updateDisplay('3'));
+buttonSubtraction.addEventListener("click", () => updateDisplay('-'));
+
+button0.addEventListener("click", () => updateDisplay('0'));
+//buttonDecimal.addEventListener("click", () => updateDisplay('.'));
+buttonAddition.addEventListener("click", () => updateDisplay('+'));
+//buttonEquals.addEventListener("click", () => updateDisplay('*'));
+
+
+// Arithmatic methods
 const add = (a, b) => a + b;
 const subtract = (a, b) => a - b;
 const multiply = (a, b) => a * b;
@@ -36,7 +60,7 @@ const divide = (a, b) => {
         return undefined;
 };
 
-const operate = (num1, op, num2) => {
+const operate = (num1=0, op, num2=0) => {
     switch (op) {
         case '+':
             return add(num1, num2);
@@ -51,8 +75,48 @@ const operate = (num1, op, num2) => {
             return divide(num1, num2);
             break;
         default:
-            console.error("Something has gone very wrong.");
+            return num1;
             break;
     }
 };
+
+function updateDisplay(string) {
+    let operators = ['+', '-', '*', '/'];
+
+    if (operators.includes(string))
+    {
+        // an operator hasn't been inputted yet
+        if (!operatorAlreadyExists(displayValue, operators))
+            input[1] = string;
+        // an operator has been inputted BUT it was the previous input
+        else if (operators.includes(displayValue.slice(-1)))
+        {
+            displayValue = displayValue.substring(0, displayValue.length - 1) + string;
+            display.innerText = displayValue;
+            input[1] = string;
+            return;
+        }
+        // an operator was inputted and it wasn't the previous input
+        else return;
+    }
+    
+    
+    displayValue += string;
+    display.innerText = displayValue;
+}
+
+function operatorAlreadyExists(string, operators)
+{
+    for (let operator of operators)
+    {
+        if (string.includes(operator))
+            return true;
+    }
+    return false;
+}
+
+function clearDisplay() {
+    displayValue = ''
+    display.innerText = displayValue;
+}
 
