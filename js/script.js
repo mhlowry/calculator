@@ -47,7 +47,7 @@ buttonSubtraction.addEventListener("click", () => updateDisplay('-'));
 button0.addEventListener("click", () => updateDisplay('0'));
 //buttonDecimal.addEventListener("click", () => updateDisplay('.'));
 buttonAddition.addEventListener("click", () => updateDisplay('+'));
-//buttonEquals.addEventListener("click", () => updateDisplay('*'));
+buttonEquals.addEventListener("click", () => showResult(operate(...input)));
 
 
 // Arithmatic methods
@@ -145,3 +145,8 @@ function clearDisplay() {
     input = [0, '+', 0];
 }
 
+function showResult(string) {
+    display.innerText = string;
+    displayValue = '';
+    input = [0, '+', 0];
+}
