@@ -1,5 +1,6 @@
 let displayValue = '';
 let input = [0, '+', 0];
+const operators = ['+', '-', '*', '/'];
 
 //buttons and display selectors
 let buttonC = document.querySelector("#C");
@@ -55,7 +56,7 @@ const subtract = (a, b) => a - b;
 const multiply = (a, b) => a * b;
 const divide = (a, b) => {
     if (b != 0)
-        a / b;
+        return a / b;
     else
         return undefined;
 };
@@ -81,35 +82,58 @@ const operate = (num1=0, op, num2=0) => {
 };
 
 function updateDisplay(string) {
-    let operators = ['+', '-', '*', '/'];
-
     if (operators.includes(string))
     {
-        // an operator hasn't been inputted yet
-        if (!operatorAlreadyExists(displayValue, operators))
-            input[1] = string;
-        // an operator has been inputted BUT it was the previous input
-        else if (operators.includes(displayValue.slice(-1)))
+        if (displayValue.length > 0)
         {
-            displayValue = displayValue.substring(0, displayValue.length - 1) + string;
-            display.innerText = displayValue;
-            input[1] = string;
-            return;
+            // an operator hasn't been inputted yet
+            if (!operatorAlreadyExists())
+            {
+                displayValue += string;
+                display.innerText = displayValue;
+                updateInputArray(string, true);
+                console.log(input);
+            }
+            // an operator has been inputted BUT it was the previous input
+            else if (operators.includes(displayValue.slice(-1)))
+            {
+                displayValue = displayValue.substring(0, displayValue.length - 1) + string;
+                display.innerText = displayValue;
+                updateInputArray(string, true);
+                console.log(input);
+            }
         }
-        // an operator was inputted and it wasn't the previous input
-        else return;
+        return;
     }
-    
     
     displayValue += string;
     display.innerText = displayValue;
+    updateInputArray(string);
+    console.log(input);
 }
 
-function operatorAlreadyExists(string, operators)
+function updateInputArray(string, isOperator=false) {
+    // the number is the operator
+    if (isOperator)
+    {
+        input[1] = string;
+    }
+    else
+    {
+        // the number is num1
+        if (!operatorAlreadyExists())
+            input[0] = parseInt(input[0] + string);
+        // the number is num2
+        else
+            input[2] = parseInt(input[2] + string);
+    }
+}
+
+function operatorAlreadyExists()
 {
     for (let operator of operators)
     {
-        if (string.includes(operator))
+        if (displayValue.includes(operator))
             return true;
     }
     return false;
@@ -118,5 +142,6 @@ function operatorAlreadyExists(string, operators)
 function clearDisplay() {
     displayValue = ''
     display.innerText = displayValue;
+    input = [0, '+', 0];
 }
 
